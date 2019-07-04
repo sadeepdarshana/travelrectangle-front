@@ -1,0 +1,19 @@
+<p class="mat-display-4">
+  hotel works!
+</p>
+
+<div class="full-vert-container ">
+  <mat-form-field>
+    <input matInput placeholder="Hotel Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Address"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Select District" [(value)]="selectedDistrict">
+      <mat-option *ngFor="let d of districts; let i = index" [value]="i">{{d}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

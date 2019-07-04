@@ -1,0 +1,8 @@
+.full-vert-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-vert-container > * {
+  width: 100%;
+}
