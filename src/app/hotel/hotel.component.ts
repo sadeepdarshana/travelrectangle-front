@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Utils from '../utils';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-hotel',
@@ -9,11 +10,21 @@ import Utils from '../utils';
 export class HotelComponent implements OnInit {
 
   districts =Utils.districts();
-  selectedDistrict = 0;
+  selectedDistrict = 3;
 
-  constructor() { }
+  hotelName = 'bhj';
+
+  constructor(private snackBar: MatSnackBar) { }
+
 
   ngOnInit() {
   }
 
+
+  successSnackBar() {
+    this.snackBar.open("Successfully added record   ✔", '', {
+      duration: 2000,
+      panelClass: ['success-snack-style']
+    });
+  }
 }

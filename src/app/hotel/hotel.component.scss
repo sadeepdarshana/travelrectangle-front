@@ -1,8 +1,23 @@
 .full-vert-container {
   display: flex;
   flex-direction: column;
+  justify-content: right;
 }
 
-.full-vert-container > * {
-  width: 100%;
+.right-aligned-div {
+
+  align-self: flex-end;
 }
+
+
+
+::ng-deep .success-snack-style{
+  background: #393939;
+
+}
+
+::ng-deep .success-snack-style> * {
+  color: #00b100;
+  font-size: medium;
+}
+

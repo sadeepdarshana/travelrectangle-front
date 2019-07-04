@@ -1,19 +1,28 @@
-<p class="mat-display-4">
-  hotel works!
+<p class="mat-display-1">
+  Add Hotel
 </p>
 
 <div class="full-vert-container ">
   <mat-form-field>
-    <input matInput placeholder="Hotel Name">
+    <input matInput placeholder="Hotel Name" >
   </mat-form-field>
 
   <mat-form-field>
     <textarea matInput placeholder="Address"></textarea>
   </mat-form-field>
 
+  <div>
   <mat-form-field>
     <mat-select placeholder="Select District" [(value)]="selectedDistrict">
       <mat-option *ngFor="let d of districts; let i = index" [value]="i">{{d}}</mat-option>
     </mat-select>
   </mat-form-field>
+  </div>
+
+
+  <div class="right-aligned-div">
+    <button (click)="successSnackBar()" mat-raised-button color="white">Clear</button>
+    &nbsp;&nbsp;
+    <button (click)="successSnackBar()" mat-raised-button color="primary">Submit</button>
+  </div>
 </div>
