@@ -11,7 +11,8 @@ import { SearchComponent } from './search/search.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatInputModule, MatSelectModule, MatSnackBarModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgxMatIntlTelInputModule} from 'ngx-mat-intl-tel-input';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {FormsModule} from '@angular/forms';
     SearchComponent
   ],
   imports: [
+    NgxMatIntlTelInputModule,
     FormsModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
@@ -33,7 +35,8 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

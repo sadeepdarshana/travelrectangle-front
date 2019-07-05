@@ -32,3 +32,16 @@ section {
   margin: 0 auto;
   padding: 2em;
 }
+
+
+.full-vert-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+}
+
+.right-aligned-div {
+
+  align-self: flex-end;
+}
+
