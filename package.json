@@ -24,7 +24,6 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "libphonenumber-js": "^1.7.20",
-    "ngx-mat-intl-tel-input": "^2.0.2",
     "node-sass": "^4.12.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",

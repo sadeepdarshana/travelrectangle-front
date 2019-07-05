@@ -12,7 +12,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatInputModule, MatSelectModule, MatSnackBarModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgxMatIntlTelInputModule} from 'ngx-mat-intl-tel-input';
 
 
 @NgModule({
@@ -25,7 +24,6 @@ import {NgxMatIntlTelInputModule} from 'ngx-mat-intl-tel-input';
     SearchComponent
   ],
   imports: [
-    NgxMatIntlTelInputModule,
     FormsModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
