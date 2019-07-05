@@ -12,7 +12,9 @@ export class HotelComponent implements OnInit {
   districts =Utils.districts();
   selectedDistrict = 3;
 
-  hotelName = 'bhj';
+  hotelName = '';
+  hotelAddress: '';
+  hotelDistrictId: 1;
 
   constructor(private snackBar: MatSnackBar) { }
 

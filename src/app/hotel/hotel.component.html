@@ -4,11 +4,11 @@
 
 <div class="full-vert-container ">
   <mat-form-field>
-    <input matInput placeholder="Hotel Name" >
+    <input matInput placeholder="Hotel Name" [(ngModel)]="hotelName">
   </mat-form-field>
 
   <mat-form-field>
-    <textarea matInput placeholder="Address"></textarea>
+    <textarea matInput placeholder="Address"  [(ngModel)]="hotelAddress"></textarea>
   </mat-form-field>
 
   <div>

@@ -11,6 +11,7 @@ import { SearchComponent } from './search/search.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatInputModule, MatSelectModule, MatSnackBarModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     SearchComponent
   ],
   imports: [
+    FormsModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
