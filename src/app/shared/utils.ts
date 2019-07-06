@@ -4,7 +4,10 @@ export default class Utils {
       'Mullativue', 'Ampara', 'Trincomalee', 'Batticaloa', 'Kilinochchi', 'Kurunegala', 'Puttalam', 'Anuradhapura', 'Polonnaruwa', 'Badulla',
       'Moneragala', 'Ratnapura', 'Kegalle'];
   }
-  static doSomethingElse(val: string) { return val; }
 }
+
+
+
+
 
 
