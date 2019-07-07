@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import Utils from '../shared/utils';
-import {ErrorStateMatcher, MatSnackBar} from '@angular/material';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import Utils from '../shared/shared';
+import {FormControl, Validators} from '@angular/forms';
 import {RestApiService} from '../rest-api.service';
-import {Hotel} from '../shared/models/hotel.model';
+import {Hotel} from '../shared/model/hotel.model';
+import {ToastrService} from 'ngx-toastr';
+import {InputErrorHighlightableMatcher} from '../shared/shared';
 
 @Component({
   selector: 'app-hotel',
@@ -40,7 +41,7 @@ export class HotelComponent implements OnInit {
 
   async submit(){
     if(this.hotelEmailFormControl.invalid||this.hotelAddressFormControl.invalid||this.hotelNameFormControl.invalid){
-      this.displaySnackBarInvalidInput();
+      this.toastInvalidInput();
       this.hotelNameFormControl.markAsTouched();
       this.hotelAddressFormControl.markAsTouched();
       this.hotelEmailFormControl.markAsTouched();
@@ -50,51 +51,40 @@ export class HotelComponent implements OnInit {
     let newHotelInfo = new Hotel(this.hotelName, this.hotelAddress, this.hotelDistrictIndex, this.hotelEmail);
 
     try {
-      await this.restApi.addHotel(newHotelInfo);
+      let res = await this.restApi.addHotel(newHotelInfo);
+      console.info("hotel added");
       this.clearInputFields();
-      this.displaySnackBarSuccess();
+      this.toastHotelAdded();
     }catch (e) {
       console.error("Error adding hotel");
-      this.snackBar.open("Something went wrong", '', {
-        duration: 2000,
-        panelClass: ['invalid-snack-style']
-      });
+      this.toastUnspecifiedError();
     }
 
 
   }
 
-  displaySnackBarInvalidInput() {
-    this.snackBar.open("Please correct all the input fields", '', {
-      duration: 2000,
-      panelClass: ['invalid-snack-style']
-    });
-  }
-  displaySnackBarSuccess() {
-    this.snackBar.open("Successfully added record   ✔", '', {
-      duration: 2000,
-      panelClass: ['success-snack-style']
-    });
+  toastInvalidInput() {
+    this.toastr.error('Please fix errors in inputs','',{positionClass: 'toast-bottom-left',});
   }
 
-  //hotelEmail input validation related fields
+  toastHotelAdded() {
+    this.toastr.success('Hotel added to database','',{positionClass: 'toast-bottom-left',});
+  }
+
+  toastUnspecifiedError() {
+    this.toastr.error('Something went wrong','',{positionClass: 'toast-bottom-left',});
+  }
+
+  //input validation related fields
   hotelEmailFormControl = new FormControl('', [ Validators.required, Validators.email]);
   hotelNameFormControl = new FormControl('', [ Validators.required]);
   hotelAddressFormControl = new FormControl('', [ Validators.required]);
   inputErrorHighlightableMatcher = new InputErrorHighlightableMatcher();
 
 
-  constructor(private snackBar: MatSnackBar,
-              private restApi: RestApiService) { }
+  constructor(private restApi: RestApiService,
+              private toastr: ToastrService) { }
   ngOnInit() {}
 }
 
 
-//We should not highlight a text box in red if user has not touched it yet
-//even thought its data is invalid. This class does that..
-export class InputErrorHighlightableMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}

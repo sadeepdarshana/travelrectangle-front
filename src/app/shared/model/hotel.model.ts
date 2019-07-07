@@ -8,9 +8,8 @@ export class Hotel {
               public hotelDistrictIndex:number,
               public hotelEmail:string
   )
-  {
 
-  }
+  {  }
 
 }
 

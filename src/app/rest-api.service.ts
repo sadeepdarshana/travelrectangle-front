@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import {Hotel} from './shared/models/hotel.model';
+import {Hotel} from './shared/model/hotel.model';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HotelNameIdListResponse} from './shared/responseobject/hotelnameidlistresponse.responseobject';
+import {HotelListResponse} from './shared/responseobject/hotellistresponse.responseobject';
+import {RoomType} from './shared/model/roomtype.model';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +18,27 @@ export class RestApiService {
 
   constructor(private http: HttpClient) { }
 
-
-  async getHotel(hotelId:number): Promise<Object> {
-    try {
-      return this.http.get(`${this.host}hotels/${hotelId}`).toPromise();
-    }
-    catch (error) {
-      console.log("error occurred in RestApiService.getHotel");
-    }
+  //-----------------------------------------------hotel------------------------------------------
+  async getHotel(hotelId:number): Promise<Hotel> {
+      return this.http.get<Hotel>(`${this.host}hotels/${hotelId}`).toPromise();
   }
 
-  async addHotel(hotel:Hotel): Promise<Object> {
-    try {
-      return this.http.post<Hotel>(`${this.host}hotels/add`,hotel,this.httpOptions).toPromise();
-    }
-    catch (error) {
-      console.log("error occurred in RestApiService.getHotel");
-    }
+  async getAllHotels(): Promise<HotelListResponse> {
+    let params = {params: {nameIdOnly: false.toString()}};
+    return this.http.get<HotelListResponse>(`${this.host}hotels/all`,params).toPromise();
+  }
+
+  async getAllHotelsNameId(): Promise<HotelNameIdListResponse> {
+    let params = {params: {nameIdOnly: true.toString()}};
+    return this.http.get<HotelNameIdListResponse>(`${this.host}hotels/all`,params).toPromise();
+  }
+
+  async addHotel(hotel:Hotel): Promise<CreatedResponse> {
+    return this.http.post<CreatedResponse>(`${this.host}hotels/add`,hotel,this.httpOptions).toPromise();
+  }
+
+  //-----------------------------------------------Room Type----------------------------------------
+  async addRoomType(roomType:RoomType): Promise<CreatedResponse> {
+    return this.http.post<CreatedResponse>(`${this.host}roomtypes/add`,roomType,this.httpOptions).toPromise();
   }
 }

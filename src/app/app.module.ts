@@ -15,6 +15,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 
+import { ToastrModule } from 'ngx-toastr';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +28,9 @@ import {HttpClientModule} from '@angular/common/http';
     SearchComponent
   ],
   imports: [
+    ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    MatSnackBarModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatButtonModule,

@@ -33,7 +33,7 @@ section {
   padding: 2em;
 }
 
-
+//--------------------------------------------project specific----------------------------------
 .full-vert-container {
   display: flex;
   flex-direction: column;
@@ -45,3 +45,12 @@ section {
   align-self: flex-end;
 }
 
+
+.px400wide-box{
+  width:300px;
+}
+
+
+
+
+@import '~ngx-toastr/toastr';

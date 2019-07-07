@@ -1,3 +1,54 @@
-<p>
-  roomtype works!
+<p class="mat-display-1">
+  Add New Room Type
 </p>
+
+<div class="full-vert-container ">
+  <div>
+  <mat-form-field style="width:300px;" >
+    <mat-select  style="width:300px;" placeholder="Select Hotel" [(ngModel)]="hotelId">
+      <mat-option  style="width:350px;" *ngFor="let hotel of hotels" [value]="hotel.hotelId">{{hotel.hotelName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <div style="display: flex">
+    <mat-form-field class="px400wide-box">
+      <input matInput placeholder="Room Type Name" [(ngModel)]="roomTypeName" [errorStateMatcher]="inputErrorHighlightableMatcher" [formControl]="roomTypeNameFormControl">
+      <mat-error *ngIf="roomTypeNameFormControl.hasError('required')"> Room type name is <strong>required</strong></mat-error>
+      <mat-hint>Ex: Deluxe Double Room</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="px400wide-box"  style="margin-left:auto;">
+      <input matInput type="number" placeholder="Price in LKR" [(ngModel)]="roomTypePrice" [errorStateMatcher]="inputErrorHighlightableMatcher" [formControl]="roomTypePriceFormControl">
+      <mat-error *ngIf="roomTypePriceFormControl.hasError('required')"> Room type price is <strong>invalid</strong></mat-error>
+      <mat-hint>Per room for 1 night</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div style="width:100%; height:27px;"> &nbsp;</div>
+
+  <div style="display: flex">
+    <mat-form-field class="px400wide-box">
+      <input type="number"  matInput placeholder="No. of Adults" [formControl]="roomTypeCapacityFormControl" [errorStateMatcher]="inputErrorHighlightableMatcher" [(ngModel)]="roomTypeCapacity">
+      <mat-hint>Maximum number of adults for a room</mat-hint>
+      <mat-error *ngIf="roomTypeCapacityFormControl.invalid"> The value entered is <strong>invalid</strong>. Enter a number between 1 to 4</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="px400wide-box"   style="margin-left:auto;">
+      <input type="number"  matInput placeholder="Markup %" [formControl]="roomTypeMarkupFormControl" [errorStateMatcher]="inputErrorHighlightableMatcher" [(ngModel)]="roomTypeMarkup">
+      <mat-hint>Markup as a percentage. (ex: 15)</mat-hint>
+      <mat-error *ngIf="roomTypeCapacityFormControl.invalid"> The value entered is <strong>invalid</strong>. Enter a number between 0 to 100</mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div style="width:100%; height:35px;"> &nbsp;</div>
+  <div class="right-aligned-div">
+    <button (click)="clearInputFields()" mat-raised-button>Clear</button>
+    &nbsp;&nbsp;
+    <button (click)="submit()" mat-raised-button color="primary">Submit</button>
+  </div>
+</div>
