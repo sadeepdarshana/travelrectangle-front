@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit {
     let items =[];
 
     for(let i of this.formArray.value){
-      items.push(new CapacityCount(i['capacity'],i['quantity']));
+      items.push(new CapacityCount(i['capacity'],i['count']));
     }
 
     let searchRequest = new SearchRequest(startDate,endDate,items);
@@ -64,7 +64,7 @@ export class SearchComponent implements OnInit {
   createItem(): FormGroup {
     return this.formBuilder.group({
       capacity: '',
-      quantity:''
+      count:''
     });
   }
   toastInvalidInput() {
