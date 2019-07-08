@@ -23,6 +23,11 @@ export class SearchComponent implements OnInit {
 
   nightsCount:number;
 
+  districtNames = ['Any'].concat(Utils.districts());
+
+  inputErrorHighlightableMatcher = new InputErrorHighlightableMatcher();
+  hotelDistrictIndex: number;
+
   clearInputFields() {
     while(this.formArray.length)this.formArray.removeAt(0);
     this.addItem();
@@ -31,8 +36,10 @@ export class SearchComponent implements OnInit {
 
   async submit() {
 
-    let startDate = moment(this.startDate).format('YYYY-MM-DD');
-    let endDate = moment(Utils.addDays(this.startDate,this.nightsCount-1)).format('YYYY-MM-DD');
+    let __startDate = new Date();
+    __startDate.setDate(this.startDate.getDate());
+    let startDate = moment(__startDate).format('YYYY-MM-DD');
+    let endDate = moment(Utils.addDays(__startDate,this.nightsCount-1)).format('YYYY-MM-DD');
 
 
     let items =[];
@@ -41,12 +48,13 @@ export class SearchComponent implements OnInit {
       items.push(new CapacityCount(i['capacity'],i['count']));
     }
 
-    let searchRequest = new SearchRequest(startDate,endDate,items);
+    let searchRequest = new SearchRequest(startDate,endDate,this.hotelDistrictIndex-1,items);
 
 
     try {
       console.info(searchRequest);
       let res = await this.restApi.searchRequest(searchRequest);
+      console.log(res);
       this.clearInputFields();
       this.toastContractAdded();
     }catch (e) {
@@ -54,10 +62,8 @@ export class SearchComponent implements OnInit {
       this.toastUnspecifiedError();
     }
 
-    console.log(searchRequest);
   }
 
-  inputErrorHighlightableMatcher = new InputErrorHighlightableMatcher();
 
 
 

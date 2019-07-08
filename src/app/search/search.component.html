@@ -6,6 +6,13 @@
 
   <div>
     <mat-form-field>
+      <mat-select placeholder="Select District" [(ngModel)]="hotelDistrictIndex">
+        <mat-option *ngFor="let districtName of districtNames; let districtIndex = index" [value]="districtIndex">{{districtName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
       <input matInput [matDatepicker]="picker1" placeholder="Start date" [(ngModel)] ="startDate">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
@@ -39,7 +46,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button mat-button *ngIf="formArray.length!=1" color="" (click)="removeItem(i)">remove</button>
 
-        <button *ngIf="i==0" mat-mini-fab color="primary" (click)="addItem()">+</button>
+        <button *ngIf="i==0 && formArray.length<4" mat-mini-fab color="primary" (click)="addItem()">+</button>
         <div style="width:100%; height:27px;"> &nbsp;</div>
       </div>
 
