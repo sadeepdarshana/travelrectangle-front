@@ -9,7 +9,14 @@ import { RoomtypeComponent } from './roomtype/roomtype.component';
 import { ContractComponent } from './contract/contract.component';
 import { SearchComponent } from './search/search.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatInputModule, MatSelectModule, MatSnackBarModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatInputModule, MatNativeDateModule,
+  MatSelectModule,
+  MatSnackBarModule
+} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
@@ -28,6 +35,7 @@ import { ToastrModule } from 'ngx-toastr';
     SearchComponent
   ],
   imports: [
+    MatNativeDateModule,
     ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
@@ -39,7 +47,8 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     MatSelectModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

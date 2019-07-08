@@ -20,7 +20,8 @@
       <mat-hint>Ex: Deluxe Double Room</mat-hint>
     </mat-form-field>
 
-    <mat-form-field class="px400wide-box"  style="margin-left:auto;">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-form-field class="px400wide-box"  >
       <input matInput type="number" placeholder="Price in LKR" [(ngModel)]="roomTypePrice" [errorStateMatcher]="inputErrorHighlightableMatcher" [formControl]="roomTypePriceFormControl">
       <mat-error *ngIf="roomTypePriceFormControl.hasError('required')"> Room type price is <strong>invalid</strong></mat-error>
       <mat-hint>Per room for 1 night</mat-hint>
@@ -37,7 +38,8 @@
     </mat-form-field>
 
 
-    <mat-form-field class="px400wide-box"   style="margin-left:auto;">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-form-field class="px400wide-box" >
       <input type="number"  matInput placeholder="Markup %" [formControl]="roomTypeMarkupFormControl" [errorStateMatcher]="inputErrorHighlightableMatcher" [(ngModel)]="roomTypeMarkup">
       <mat-hint>Markup as a percentage. (ex: 15)</mat-hint>
       <mat-error *ngIf="roomTypeCapacityFormControl.invalid"> The value entered is <strong>invalid</strong>. Enter a number between 0 to 100</mat-error>

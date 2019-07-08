@@ -28,9 +28,9 @@ export class RoomtypeComponent implements OnInit {
 
   clearInputFields() {
     this.roomTypeName = '';
-    this.roomTypePrice= 0;
-    this.roomTypeCapacity= 0;
-    this.roomTypeMarkup= 0;
+    this.roomTypePrice= null;
+    this.roomTypeCapacity= null;
+    this.roomTypeMarkup= null;
 
 
     //prevent displaying validation errors till user touches the fields again

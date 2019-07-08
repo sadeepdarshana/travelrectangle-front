@@ -1,3 +1,58 @@
-<p>
-  search works!
+<p class="mat-display-1">
+  Search Hotels
 </p>
+
+<div class="full-vert-container ">
+
+  <div>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker1" placeholder="Start date" [(ngModel)] ="startDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-form-field class="px400wide-box">
+      <input [(ngModel)]="nightsCount"   type="number" matInput placeholder="No. of Nights"  [errorStateMatcher]="inputErrorHighlightableMatcher" >
+      <mat-hint>Number of nights staying</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div style="width:100%; height:27px;"> &nbsp;</div>
+  <div [formGroup]="mainForm">
+    <div formArrayName="items"
+         *ngFor="let item of mainForm.controls.items['controls']; let i = index;">
+      <div [formGroupName]="i">
+
+        <mat-form-field style="width:300px;" >
+          <mat-select formControlName="capacity"  style="width:300px;" placeholder="Adults Count">
+            <mat-option  style="width:350px;" *ngFor="let ncount of [1,2,3,4]" [value]="ncount">{{ncount}}</mat-option>
+          </mat-select>
+          <mat-hint>Number of Adults for a room</mat-hint>
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-form-field class="px400wide-box">
+          <input formControlName="quantity"  type="number" matInput placeholder="Quantity"  [errorStateMatcher]="inputErrorHighlightableMatcher" >
+          <mat-hint>Number of such rooms</mat-hint>
+        </mat-form-field>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-button *ngIf="formArray.length!=1" color="" (click)="removeItem(i)">remove</button>
+
+        <button *ngIf="i==0" mat-mini-fab color="primary" (click)="addItem()">+</button>
+        <div style="width:100%; height:27px;"> &nbsp;</div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div style="width:100%; height:35px;"> &nbsp;</div>
+  <div class="right-aligned-div">
+    <button (click)="clearInputFields()" mat-raised-button>Clear</button>
+    &nbsp;&nbsp;
+    <button (click)="submit()" mat-raised-button color="primary">Submit</button>
+  </div>
+
+</div>

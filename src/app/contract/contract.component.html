@@ -3,6 +3,22 @@
 </p>
 
 <div class="full-vert-container ">
+
+  <div>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker1" placeholder="Start date" [formControl]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker2" placeholder="End date"  [formControl]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+
   <div>
     <mat-form-field style="width:300px;" >
       <mat-select (selectionChange)="hotelIdChanged()"  style="width:300px;" placeholder="Select Hotel" [(ngModel)]="hotelId">
@@ -12,18 +28,15 @@
 
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button mat-mini-fab color="primary" (click)="addItem()">+</button>
   </div>
-
-
-  <div [formGroup]="orderForm">
+  <div [formGroup]="mainForm">
     <div formArrayName="items"
-         *ngFor="let item of orderForm.controls.items['controls']; let i = index;">
+         *ngFor="let item of mainForm.controls.items['controls']; let i = index;">
       <div [formGroupName]="i">
 
         <mat-form-field style="width:300px;" >
           <mat-select formControlName="roomTypeId"  style="width:300px;" placeholder="Select Room Type">
-            <mat-option  style="width:350px;" *ngFor="let roomType of roomTypes" [value]="roomType.hotelId">{{roomType.roomTypeName}}</mat-option>
+            <mat-option  style="width:350px;" *ngFor="let roomType of roomTypes" [value]="roomType.roomTypeId">{{roomType.roomTypeName}}</mat-option>
           </mat-select>
         </mat-form-field>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -33,10 +46,11 @@
         </mat-form-field>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-button color="" (click)="removeItem(i)">remove</button>
-      </div>
+        <button mat-button *ngIf="formArray.length!=1" color="" (click)="removeItem(i)">remove</button>
 
-      Chosen name: {{ item['controls']['quantity']['value'] }}
+        <button *ngIf="i==0" mat-mini-fab color="primary" (click)="addItem()">+</button>
+        <div style="width:100%; height:27px;"> &nbsp;</div>
+      </div>
 
 
     </div>

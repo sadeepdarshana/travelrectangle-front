@@ -5,6 +5,8 @@ import {HotelNameIdListResponse} from './shared/responseobject/hotelnameidlistre
 import {HotelListResponse} from './shared/responseobject/hotellistresponse.responseobject';
 import {RoomType} from './shared/model/roomtype.model';
 import {RoomTypeListResponse} from './shared/responseobject/roomtypelistresponse.responseobject';
+import {Contract} from './shared/model/contract.model';
+import {SearchRequest} from './shared/model/searchrequest.model';
 
 
 
@@ -51,4 +53,18 @@ export class RestApiService {
     let params = {params: {hotelId: hotelId.toString()}};
     return this.http.get<RoomTypeListResponse>(`${this.host}roomtypes/byHotelId`,params).toPromise();
   }
+
+
+  //-----------------------------------------------Room Type----------------------------------------
+
+  async addContract(contract:Contract): Promise<CreatedResponse> {
+    return this.http.post<CreatedResponse>(`${this.host}contracts/add`,contract,this.httpOptions).toPromise();
+  }
+
+  //-----------------------------------------------Room Type----------------------------------------
+
+  async searchRequest(searchRequest:SearchRequest): Promise<CreatedResponse> {
+    return this.http.post<CreatedResponse>(`${this.host}search/request`,searchRequest,this.httpOptions).toPromise();
+  }
+
 }
