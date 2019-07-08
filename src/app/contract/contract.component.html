@@ -5,23 +5,40 @@
 <div class="full-vert-container ">
   <div>
     <mat-form-field style="width:300px;" >
-      <mat-select  style="width:300px;" placeholder="Select Hotel" [(ngModel)]="hotelId">
+      <mat-select (selectionChange)="hotelIdChanged()"  style="width:300px;" placeholder="Select Hotel" [(ngModel)]="hotelId">
         <mat-option  style="width:350px;" *ngFor="let hotel of hotels" [value]="hotel.hotelId">{{hotel.hotelName}}</mat-option>
       </mat-select>
     </mat-form-field>
+
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button mat-mini-fab color="primary" (click)="addItem()">+</button>
   </div>
 
 
   <div [formGroup]="orderForm">
     <div formArrayName="items"
-         *ngFor="let item of orderForm.get('items').controls; let i = index;">
+         *ngFor="let item of orderForm.controls.items['controls']; let i = index;">
       <div [formGroupName]="i">
-        <input formControlName="name" placeholder="Item name">
-        <input formControlName="description" placeholder="Item description">
-        <input formControlName="price" placeholder="Item price">
+
+        <mat-form-field style="width:300px;" >
+          <mat-select formControlName="roomTypeId"  style="width:300px;" placeholder="Select Room Type">
+            <mat-option  style="width:350px;" *ngFor="let roomType of roomTypes" [value]="roomType.hotelId">{{roomType.roomTypeName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-form-field class="px400wide-box">
+          <input formControlName="quantity"  type="number" matInput placeholder="Quantity"  [errorStateMatcher]="inputErrorHighlightableMatcher" >
+          <mat-hint>Number of rooms given under the contract</mat-hint>
+        </mat-form-field>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-button color="" (click)="removeItem(i)">remove</button>
       </div>
 
-      Chosen name: {{ orderForm.controls.items.controls[i].controls.name.value }}
+      Chosen name: {{ item['controls']['quantity']['value'] }}
+
+
     </div>
   </div>
 

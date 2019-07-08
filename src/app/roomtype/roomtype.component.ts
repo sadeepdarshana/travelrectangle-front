@@ -55,7 +55,7 @@ export class RoomtypeComponent implements OnInit {
       return;
     }
 
-    let newRoomTypeInfo = new RoomType(this.hotelId,this.roomTypeName,this.roomTypePrice,this.roomTypeCapacity,this.roomTypeMarkup)
+    let newRoomTypeInfo = new RoomType(this.hotelId,this.roomTypeName,this.roomTypePrice,this.roomTypeCapacity,this.roomTypeMarkup);
 
     try {
       let res = await this.restApi.addRoomType(newRoomTypeInfo);

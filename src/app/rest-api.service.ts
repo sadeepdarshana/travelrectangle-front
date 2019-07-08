@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {HotelNameIdListResponse} from './shared/responseobject/hotelnameidlistresponse.responseobject';
 import {HotelListResponse} from './shared/responseobject/hotellistresponse.responseobject';
 import {RoomType} from './shared/model/roomtype.model';
+import {RoomTypeListResponse} from './shared/responseobject/roomtypelistresponse.responseobject';
 
 
 
@@ -40,5 +41,14 @@ export class RestApiService {
   //-----------------------------------------------Room Type----------------------------------------
   async addRoomType(roomType:RoomType): Promise<CreatedResponse> {
     return this.http.post<CreatedResponse>(`${this.host}roomtypes/add`,roomType,this.httpOptions).toPromise();
+  }
+
+  async getAllRoomTypes(): Promise<RoomTypeListResponse> {
+    let params = {params: {nameIdOnly: false.toString()}};
+    return this.http.get<RoomTypeListResponse>(`${this.host}roomtypes/all`,params).toPromise();
+  }
+  async getAllRoomTypesByHotelId(hotelId:number): Promise<RoomTypeListResponse> {
+    let params = {params: {hotelId: hotelId.toString()}};
+    return this.http.get<RoomTypeListResponse>(`${this.host}roomtypes/byHotelId`,params).toPromise();
   }
 }

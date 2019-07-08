@@ -3,6 +3,8 @@ import {HotelNameId} from '../shared/model/hotelnameid.model';
 import {RestApiService} from '../rest-api.service';
 import {ToastrService} from 'ngx-toastr';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {InputErrorHighlightableMatcher} from '../shared/shared';
+import {RoomType} from '../shared/model/roomtype.model';
 
 @Component({
   selector: 'app-contract',
@@ -12,7 +14,8 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 export class ContractComponent implements OnInit {
 
   hotels : HotelNameId[];
-
+  roomTypes : RoomType[];
+  orderForm: FormGroup;
 
   //ngModel fields
   hotelId :number;
@@ -28,8 +31,10 @@ export class ContractComponent implements OnInit {
 
   }
 
-  orderForm: FormGroup;
-  items: FormArray;
+  inputErrorHighlightableMatcher = new InputErrorHighlightableMatcher();
+
+
+
   constructor(private restApi: RestApiService,
               private toast: ToastrService,
               private formBuilder: FormBuilder) { }
@@ -37,15 +42,22 @@ export class ContractComponent implements OnInit {
 
   createItem(): FormGroup {
     return this.formBuilder.group({
-      name: '',
-      description: '',
-      price: ''
+      roomTypeId: '',
+      quantity:''
     });
   }
 
   addItem(): void {
-    this.items = this.orderForm.get('items') as FormArray;
-    this.items.push(this.createItem());
+    this.formArray.push(this.createItem());
+  }
+
+
+  removeItem(i: number) {
+    this.formArray.removeAt(i);
+  }
+
+  get formArray(){
+    return this.orderForm.get('items') as FormArray;
   }
 
   async loadHotels(){
@@ -53,6 +65,15 @@ export class ContractComponent implements OnInit {
     this.hotels = (await this.restApi.getAllHotelsNameId()).data;
     if(this.hotels!=null && this.hotels.length != 0){
       this.hotelId = this.hotels[0].hotelId;
+      this.loadRoomTypes();
+    }
+  }
+  async loadRoomTypes(){
+    try {
+
+      this.roomTypes = (await this.restApi.getAllRoomTypesByHotelId(this.hotelId)).data;
+    }catch (e) {
+      console.log("error occurred")
     }
   }
 
@@ -61,16 +82,15 @@ export class ContractComponent implements OnInit {
 
     this.loadHotels();
 
-
     this.orderForm = this.formBuilder.group({
-      customerName: '',
-      email: '',
       items: this.formBuilder.array([ this.createItem() ])
     });
 
-    this.addItem();
-    this.addItem();
-    this.addItem();
+  }
+
+  hotelIdChanged() {
+    this.loadRoomTypes();
+    console.log("hotelId changed "+this.hotelId);
   }
 
 }

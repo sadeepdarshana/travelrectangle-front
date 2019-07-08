@@ -1,6 +1,7 @@
 export class RoomType {
 
 
+  public roomTypeId :number;
 
   constructor(
     public  hotelId :number,
