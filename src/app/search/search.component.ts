@@ -10,6 +10,8 @@ import Utils, {InputErrorHighlightableMatcher} from '../shared/shared';
 import * as moment from 'moment';
 import {CapacityCount} from '../shared/model/capacitycount.model';
 import {SearchRequest} from '../shared/model/searchrequest.model';
+import {SearchResponse} from '../shared/responseobject/searchresponse.responseobject';
+import {HotelResult} from '../shared/model/hotelresult.model';
 
 @Component({
   selector: 'app-search',
@@ -28,6 +30,19 @@ export class SearchComponent implements OnInit {
   inputErrorHighlightableMatcher = new InputErrorHighlightableMatcher();
   hotelDistrictIndex: number;
 
+  searched:boolean=false;
+
+  hotelResults:HotelResult[];
+
+  neededRoomsCount= [0,0,0,0];
+
+  totals :number[];
+
+  devDef(){
+
+  }
+
+
   clearInputFields() {return;
     while(this.formArray.length)this.formArray.removeAt(0);
     this.addItem();
@@ -44,8 +59,10 @@ export class SearchComponent implements OnInit {
 
     let items =[];
 
+
     for(let i of this.formArray.value){
       items.push(new CapacityCount(i['capacity'],i['count']));
+      this.neededRoomsCount[i['capacity']-1] = i['count'];
     }
 
     let searchRequest = new SearchRequest(startDate,endDate,this.hotelDistrictIndex-1,items);
@@ -53,10 +70,22 @@ export class SearchComponent implements OnInit {
 
     try {
       console.info(searchRequest);
-      let res = await this.restApi.searchRequest(searchRequest);
-      console.log(res);
-      this.clearInputFields();
-      this.toastContractAdded();
+      this.hotelResults = (await this.restApi.searchRequest(searchRequest)).data;
+
+      this.totals = [];
+
+      for(let hr of this.hotelResults){
+        let hotelTotal = 0;
+        for(let roomType of hr.roomTypes){
+          if(roomType!=null)
+            hotelTotal+=roomType.roomTypePrice*this.nightsCount*this.neededRoomsCount[roomType.roomTypeCapacity-1]*(roomType.roomTypeMarkup/100+1);
+        }
+        this.totals.push(hotelTotal);
+      }
+
+      console.log(this.hotelResults);
+      //this.toastContractAdded();
+      this.searched=true;
     }catch (e) {
       console.error("Error adding hotel");
       this.toastUnspecifiedError();
@@ -95,8 +124,6 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
 
     this.mainForm = this.formBuilder.group({
       items: this.formBuilder.array([ this.createItem() ])

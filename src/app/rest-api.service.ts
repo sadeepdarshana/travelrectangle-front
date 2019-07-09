@@ -7,6 +7,7 @@ import {RoomType} from './shared/model/roomtype.model';
 import {RoomTypeListResponse} from './shared/responseobject/roomtypelistresponse.responseobject';
 import {Contract} from './shared/model/contract.model';
 import {SearchRequest} from './shared/model/searchrequest.model';
+import {SearchResponse} from './shared/responseobject/searchresponse.responseobject';
 
 
 
@@ -63,8 +64,8 @@ export class RestApiService {
 
   //-----------------------------------------------Room Type----------------------------------------
 
-  async searchRequest(searchRequest:SearchRequest): Promise<CreatedResponse> {
-    return this.http.post<CreatedResponse>(`${this.host}search/request`,searchRequest,this.httpOptions).toPromise();
+  async searchRequest(searchRequest:SearchRequest): Promise<SearchResponse> {
+    return this.http.post<SearchResponse>(`${this.host}search/request`,searchRequest,this.httpOptions).toPromise();
   }
 
 }
