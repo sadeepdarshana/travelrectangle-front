@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
   inputErrorHighlightableMatcher = new InputErrorHighlightableMatcher();
   hotelDistrictIndex: number;
 
-  clearInputFields() {
+  clearInputFields() {return;
     while(this.formArray.length)this.formArray.removeAt(0);
     this.addItem();
   }
